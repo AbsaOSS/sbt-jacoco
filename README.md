@@ -72,7 +72,7 @@ to:
 ```
 
 #### If single module project
-- See example project [spark-data-standardization](https://github.com/AbsaOSS/spark-data-ç).
+- See example project [spark-data-standardization](https://github.com/AbsaOSS/spark-data-standardization).
 - Add this content to the end of `build.sbt` file.
 ```
 // JaCoCo code coverage
