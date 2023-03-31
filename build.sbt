@@ -1,7 +1,7 @@
-lazy val jacocoVersion = "0.8.8"
+lazy val jacocoVersion = "0.8.9-SNAPSHOT"
 
 ThisBuild / version := {
-  if ((ThisBuild / isSnapshot).value) "3.4.0" + "-SNAPSHOT"
+  if ((ThisBuild / isSnapshot).value) "3.4.1" + "-SNAPSHOT"
   else (ThisBuild / version).value
 }
 
@@ -14,8 +14,8 @@ lazy val jacocoPlugin = (project in file("."))
     name := "sbt-jacoco"
 
     libraryDependencies ++= Seq(
-      "org.jacoco" % "org.jacoco.core" % jacocoVersion,
-      "org.jacoco" % "org.jacoco.report" % jacocoVersion,
+      "za.co.absa.jacoco" % "org.jacoco.core" % jacocoVersion,
+      "za.co.absa.jacoco" % "org.jacoco.report" % jacocoVersion,
       "com.jsuereth" %% "scala-arm" % "2.0",
       "com.fasterxml.jackson.core" % "jackson-core" % "2.14.2",
       "org.scalaj" %% "scalaj-http" % "2.4.2",

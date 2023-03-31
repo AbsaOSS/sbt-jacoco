@@ -32,3 +32,78 @@ metrics:
 A detailed HTML report will also be generated in the directory shown that includes line level details of coverage.
 
 See the [docs](http://scala-sbt.org/sbt-jacoco) for details on configuration options.
+-------------------------------------------------------------------------
+
+
+# Fork differences
+## Features
+* This repository contains only minimal changes to be able to use this feature.
+* **Due to expected usage of this repository is a filtering feature already activated for easier usage!!!**
+
+### Method filtration for `*.scala` files
+Feature has been implemented in another repository. See [AbsaOSS JaCoCo fork](https://github.com/AbsaOSS/jacoco).
+
+## How to use locally
+Until Scala method filtering solution will be available in official `JaCoCo` library. You can use this workaround.
+
+### How to get library with filtering logic
+- Checkout [AbsaOSS JaCoCo fork](https://github.com/AbsaOSS/jacoco) repository.
+- Call `mvn install` in repository root dir.
+- New snapshots should be available on path `~/.m2/repository/za/co/absa/jacoco/*`
+- In this repository root dir call `sbt publishLocal`
+- New snapshots should be available on path `~/.ivy2/local/com.github.sbt/sbt-jacoco/scala_2.12/sbt_1.0/`
+
+### How to use library in sbt project
+- Because we need access to local maven repository. Create file `repositories` on path `~/.sbt`
+- Fill file with this content:
+```
+[repositories]
+
+local
+maven-local
+maven-central
+```
+- Add/Update `plugins.sbt` file.
+```
+from:
+    addSbtPlugin("com.github.sbt" % "sbt-jacoco" % "3.4.0")
+to:
+    addSbtPlugin("com.github.sbt" % "sbt-jacoco" % "3.4.1-SNAPSHOT")
+```
+
+#### If single module project
+- See example project [spark-data-standardization](https://github.com/AbsaOSS/spark-data-ç).
+- Add this content to the end of `build.sbt` file.
+```
+// JaCoCo code coverage
+Test / jacocoReportSettings := JacocoReportSettings(
+  title = s"<Project-name> Jacoco Report - ${scalaVersion.value}",
+  formats = Seq(JacocoReportFormats.HTML, JacocoReportFormats.XML)
+)
+```
+- Call `sbt jacoco`.
+- Report should be saved on similar path `<project-path>/<project-root>>/target/scala-2.11/jacoco/report/html/`
+
+#### If multi module project
+- See example project [spark-commons](https://github.com/AbsaOSS/spark-commons).
+- Add this content to the end of `build.sbt` file.
+```
+import com.github.sbt.jacoco.report.JacocoReportSettings
+
+...
+
+lazy val commonJacocoReportSettings: JacocoReportSettings = JacocoReportSettings(
+  formats = Seq(JacocoReportFormats.HTML, JacocoReportFormats.XML)
+)
+
+...
+
+"To each module definition:"
+
+  .settings(
+    jacocoReportSettings := commonJacocoReportSettings.withTitle("<module-name> Jacoco Report")
+  )
+
+```
+- Call `sbt jacoco`.
+- Report should be saved on similar path `<project-path>/<project-name>/<module-name>/target/spark2.4-jvm-2.11/jacoco/report/html/`

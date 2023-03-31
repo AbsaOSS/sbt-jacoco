@@ -30,7 +30,8 @@ class Report(
     reportSettings: JacocoReportSettings,
     reportDirectory: File,
     streams: TaskStreams,
-    checkCoverage: Boolean
+    checkCoverage: Boolean,
+    sourceRootDir: File
 ) {
 
   private val percentageFormat = new DecimalFormat("#.##")
@@ -39,9 +40,12 @@ class Report(
     val (executionDataStore, sessionInfoStore) = loadExecutionData
     val bundleCoverage = analyzeStructure(executionDataStore, sessionInfoStore)
 
-    reportSettings.formats.foreach(createReport(_, bundleCoverage, executionDataStore, sessionInfoStore))
+    val bundleCoverageFiltered = new CoverageBundleMethodFilterScalaImpl()
+      .filterMethods(bundleCoverage, this.sourceRootDir);
 
-    if (checkCoverage && !checkCoverage(bundleCoverage)) {
+    reportSettings.formats.foreach(createReport(_, bundleCoverageFiltered, executionDataStore, sessionInfoStore))
+
+    if (checkCoverage && !checkCoverage(bundleCoverageFiltered)) {
       sys.error("Required coverage is not met")
     }
   }

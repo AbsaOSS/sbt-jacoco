@@ -38,6 +38,12 @@ trait JacocoKeys {
 
   val jacocoDataFile: SettingKey[File] = settingKey[File]("Execution data output file.")
 
+  val doMethodFiltration: SettingKey[Boolean] = settingKey[Boolean]("Activate method filtration feature.")
+
+  val doScalaMethodFiltration: SettingKey[Boolean] = settingKey[Boolean]("Activate method filtration feature - Scala.")
+
+  val sourceRootDir: SettingKey[File] = settingKey[File]("Path to root of source files.")
+
   val jacocoSourceSettings: SettingKey[JacocoSourceSettings] =
     settingKey[JacocoSourceSettings]("Input source code settings (encoding etc) for reporting.")
 

@@ -53,7 +53,10 @@ private[jacoco] abstract class BaseJacocoPlugin extends AutoPlugin with JacocoKe
     jacocoInstrumentedDirectory := jacocoDirectory.value / "instrumented-classes",
     jacocoInstrumentationIncludes := Seq("*"),
     jacocoInstrumentationExcludes := Seq(),
-    jacocoDataFile := jacocoDataDirectory.value / "jacoco.exec"
+    jacocoDataFile := jacocoDataDirectory.value / "jacoco.exec",
+    doMethodFiltration := true,
+    doScalaMethodFiltration := true,
+    sourceRootDir := new File(".")
   )
 
   private def scopedSettingValues = Seq(
