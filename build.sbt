@@ -69,7 +69,7 @@ lazy val jacocoPlugin = (project in file("."))
   })
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
-ThisBuild / organization := "com.github.sbt"
+ThisBuild / organization := "za.co.absa.sbt"
 ThisBuild / description := "an sbt plugin for JaCoCo Code Coverage"
 ThisBuild / homepage := Some(url("https://www.scala-sbt.org/sbt-jacoco/"))
 ThisBuild / licenses += (("Eclipse Public License v1.0", url("http://www.eclipse.org/legal/epl-v10.html")))

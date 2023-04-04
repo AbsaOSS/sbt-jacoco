@@ -57,7 +57,7 @@ object JacocoItPlugin extends BaseJacocoPlugin {
     libraryDependencies ++= {
       if ((Test / fork).value || (IntegrationTest / fork).value) {
         // config is set to fork - need to add the jacoco agent to the classpath so it can process instrumentation
-        Seq("org.jacoco" % "org.jacoco.agent" % BuildInfo.jacocoVersion % "test,it" classifier "runtime")
+        Seq("za.co.absa.jacoco" % "org.jacoco.agent" % BuildInfo.jacocoVersion % "test,it" classifier "runtime")
       } else {
         Nil
       }
