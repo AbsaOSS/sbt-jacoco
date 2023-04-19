@@ -5,7 +5,6 @@ ThisBuild / version := {
   else (ThisBuild / version).value
 }
 
-
 lazy val jacocoPlugin = (project in file("."))
   .enablePlugins(SbtPlugin)
   .enablePlugins(BuildInfoPlugin)
