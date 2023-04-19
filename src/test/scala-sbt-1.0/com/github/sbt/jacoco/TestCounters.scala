@@ -38,7 +38,8 @@ class TestCounters {
       executionDataFiles = Nil,
       classDirectories = Nil,
       sourceDirectories = Nil,
-      checkCoverage = true
+      checkCoverage = true,
+      sourceRootDir = new File(".")
     )
 
   when[ManagedLogger](mockStreams.log).thenReturn(mockLog)
