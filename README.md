@@ -96,12 +96,22 @@ lazy val commonJacocoReportSettings: JacocoReportSettings = JacocoReportSettings
   formats = Seq(JacocoReportFormats.HTML, JacocoReportFormats.XML)
 )
 
+lazy val commonJacocoExcludes: Seq[String] = Seq(
+  "za.co.absa.path.package*"
+
+)
+lazy val commonJacocoManualMethodExcludes: Seq[String] = Seq(
+  "za/co/absa/path/ClassName@methodName"
+)
+
 ...
 
 "To each module definition:"
 
   .settings(
-    jacocoReportSettings := commonJacocoReportSettings.withTitle("<module-name> Jacoco Report")
+    jacocoReportSettings := commonJacocoReportSettings.withTitle("<module-name> Jacoco Report"),
+    jacocoExcludes := commonJacocoExcludes,
+    jacocoManualMethodExcludes := commonJacocoManualMethodExcludes
   )
 
 ```
