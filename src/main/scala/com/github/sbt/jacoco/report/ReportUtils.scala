@@ -25,7 +25,8 @@ object ReportUtils {
       sourceSettings: JacocoSourceSettings,
       streams: TaskStreams,
       checkCoverage: Boolean = true,
-      sourceRootDir: File = new File(".")
+      sourceRootDir: File = new File("."),
+      methodExcludes: Seq[String] = Seq.empty
   ): Unit = {
 
     val report = new Report(
@@ -37,7 +38,8 @@ object ReportUtils {
       reportSettings = reportSettings,
       streams = streams,
       checkCoverage = checkCoverage,
-      sourceRootDir = sourceRootDir
+      sourceRootDir = sourceRootDir,
+      methodExcludes = methodExcludes
     )
 
     report.generate()
@@ -52,7 +54,8 @@ object ReportUtils {
       sourceSettings: JacocoSourceSettings,
       streams: TaskStreams,
       checkCoverage: Boolean = true,
-      sourceRootDir: File = new File(".")
+      sourceRootDir: File = new File("."),
+      methodExcludes: Seq[String] = Seq.empty
   ): Unit = {
 
     val report = new Report(
@@ -64,7 +67,8 @@ object ReportUtils {
       reportSettings = reportSettings,
       streams = streams,
       checkCoverage = checkCoverage,
-      sourceRootDir = sourceRootDir
+      sourceRootDir = sourceRootDir,
+      methodExcludes = methodExcludes
     )
 
     report.generate()

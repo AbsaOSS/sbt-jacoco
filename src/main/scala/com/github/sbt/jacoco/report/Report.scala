@@ -31,7 +31,8 @@ class Report(
     reportDirectory: File,
     streams: TaskStreams,
     checkCoverage: Boolean,
-    sourceRootDir: File
+    sourceRootDir: File,
+    methodExcludes: Seq[String]
 ) {
 
   private val percentageFormat = new DecimalFormat("#.##")
@@ -40,8 +41,9 @@ class Report(
     val (executionDataStore, sessionInfoStore) = loadExecutionData
     val bundleCoverage = analyzeStructure(executionDataStore, sessionInfoStore)
 
+    import scala.collection.JavaConverters._
     val bundleCoverageFiltered = new CoverageBundleMethodFilterScalaImpl()
-      .filterMethods(bundleCoverage, this.sourceRootDir);
+      .filterMethods(bundleCoverage, this.sourceRootDir, this.methodExcludes.asJava);
 
     reportSettings.formats.foreach(createReport(_, bundleCoverageFiltered, executionDataStore, sessionInfoStore))
 

@@ -50,12 +50,14 @@ private[jacoco] abstract class BaseJacocoPlugin extends AutoPlugin with JacocoKe
     jacocoAggregateReportSettings := JacocoReportSettings(title = "Jacoco Aggregate Coverage Report"),
     jacocoIncludes := Seq("*"),
     jacocoExcludes := Seq(),
+    jacocoManualMethodExcludes := Seq[String](),
     jacocoInstrumentedDirectory := jacocoDirectory.value / "instrumented-classes",
     jacocoInstrumentationIncludes := Seq("*"),
     jacocoInstrumentationExcludes := Seq(),
     jacocoDataFile := jacocoDataDirectory.value / "jacoco.exec",
     doMethodFiltration := true,
     doScalaMethodFiltration := true,
+    doScalaManualMethodFiltration := true,
     sourceRootDir := new File(".")
   )
 
@@ -90,7 +92,8 @@ private[jacoco] abstract class BaseJacocoPlugin extends AutoPlugin with JacocoKe
       coveredSources.value,
       classesToCover.value,
       jacocoSourceSettings.value,
-      streams.value
+      streams.value,
+      methodExcludes = jacocoManualMethodExcludes.value
     ),
     jacocoAggregateReport := ReportUtils.generateAggregateReport(
       jacocoReportDirectory.value / "aggregate",
@@ -99,7 +102,8 @@ private[jacoco] abstract class BaseJacocoPlugin extends AutoPlugin with JacocoKe
       aggregateCoveredSources.value,
       aggregateClassesToCover.value,
       jacocoSourceSettings.value,
-      streams.value
+      streams.value,
+      methodExcludes = jacocoManualMethodExcludes.value
     ),
     clean := jacocoDirectory.map(dir => if (dir.exists) IO delete dir.listFiles).value,
     fullClasspath := InstrumentationUtils.instrumentClasses(

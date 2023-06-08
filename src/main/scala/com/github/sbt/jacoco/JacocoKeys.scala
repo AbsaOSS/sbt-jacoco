@@ -42,6 +42,8 @@ trait JacocoKeys {
 
   val doScalaMethodFiltration: SettingKey[Boolean] = settingKey[Boolean]("Activate method filtration feature - Scala.")
 
+  val doScalaManualMethodFiltration: SettingKey[Boolean] = settingKey[Boolean]("Activate manual method filtration feature - Scala.")
+
   val sourceRootDir: SettingKey[File] = settingKey[File]("Path to root of source files.")
 
   val jacocoSourceSettings: SettingKey[JacocoSourceSettings] =
@@ -57,6 +59,9 @@ trait JacocoKeys {
   )
   val jacocoExcludes: SettingKey[Seq[String]] = settingKey[Seq[String]](
     "glob patterns specifying which classes not to cover; excludes override includes; default: no classes excluded"
+  )
+  val jacocoManualMethodExcludes: SettingKey[Seq[String]] = settingKey[Seq[String]](
+    "list of file::method specifying which classes methods not to cover; excludes override includes; default: no classes method pair excluded"
   )
 
   val jacocoInstrumentedDirectory: SettingKey[File] =
